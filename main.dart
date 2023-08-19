@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reuth/pages/home.dart';
+import 'package:flutter/services.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
+      home: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -33,10 +40,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
-      home: Scaffold(
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    return Scaffold(
           backgroundColor: const Color(0xffE9C46A),
           resizeToAvoidBottomInset: false,
           body: GestureDetector(
@@ -116,6 +121,7 @@ class _MyAppState extends State<MyApp> {
                     child: ElevatedButton(
                         onPressed: () {
                           print("${_controllerUsr.text} : ${_controllerPwd.text}");
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF2A9D8F), // Background color
@@ -129,7 +135,6 @@ class _MyAppState extends State<MyApp> {
                 ),
               ],
             ),
-          )),
-    );
+          ));
   }
 }
